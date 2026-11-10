@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/application-log/source-schema-v1.0.json",
+  "title": "Application Log Source Record",
+  "description": "Version 1.0 source contract. Required fields are non-null; request_id and latency_ms are optional and nullable. Additional properties are retained by the pipeline.",
+  "type": "object",
+  "required": ["timestamp", "level", "service", "message"],
+  "properties": {
+    "timestamp": {"type": "string", "format": "date-time", "description": "Required event timestamp; normalized to UTC."},
+    "level": {"type": "string", "minLength": 1, "description": "Required severity; normalized to the supported severity set."},
+    "service": {"type": "string", "minLength": 1, "description": "Required registered service name."},
+    "message": {"type": "string", "minLength": 1, "description": "Required log message."},
+    "request_id": {"type": ["string", "null"], "description": "Optional, non-unique correlation identifier."},
+    "latency_ms": {"type": ["number", "null"], "minimum": 0, "description": "Optional finite non-negative latency in milliseconds; pipeline also applies a configured upper bound."}
+  },
+  "additionalProperties": true
+}
